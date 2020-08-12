@@ -33,3 +33,8 @@ option = get_arguments()
 current_mac=get_current_mac(option.interface)
 print("current MAC = " + str(current_mac))
 change_mac(option.interface,option.mac_add)
+current_mac=get_current_mac(option.interface)
+if current_mac == option.mac_add:
+    print("[+] MAC Address was Successfully Changed to " + current_mac)
+else:
+    print("[-] MAC Address Did Not Changed.")
