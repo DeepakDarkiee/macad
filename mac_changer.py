@@ -20,22 +20,16 @@ def change_mac(interface,mac_add):
     subprocess.call(["ifconfig",interface,"down"])
     subprocess.call(["ifconfig",interface,"hw","ether",mac_add])
     subprocess.call(["ifconfig",interface,"up"])
-    # subprocess.call(["ifconfig",interface])
 
-     #raw_input("New MAC > ")
-
-#basics
-# subprocess.call("ifconfig " + interface + " down ",shell=True)
-# subprocess.call("ifconfig " + interface + " hw ether " + mac_add ,shell=True)
-# subprocess.call("ifconfig " + interface + " up ",shell=True)
-# subprocess.call("ifconfig " + interface, shell=True)
-
+def get_current_mac(interface):
+    ifconfig_results=subprocess.check_output(["ifconfig",interface])
+    mac_add_search_results=re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w",ifconfig_results)
+    if mac_add_search_results:
+        return mac_add_search_results.group(0)
+    else:
+        print("[-] Could not found MAC Address.")
 # call
 option = get_arguments()
-# change_mac(option.interface,option.mac_add )
-ifconfig_results=subprocess.check_output(["ifconfig",option.interface])
-mac_add_search_results=re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w",ifconfig_results)
-if mac_add_search_results:
-    print(mac_add_search_results.group(0))
-else:
-    print("[-] Could not found MAC Address.")
+current_mac=get_current_mac(option.interface)
+print("current MAC = " + str(current_mac))
+change_mac(option.interface,option.mac_add)
