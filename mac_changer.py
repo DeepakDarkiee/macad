@@ -2,6 +2,7 @@
 
 import subprocess # for execute cammands
 import optparse #for option in terminal
+import re
 
 def get_arguments():
     parser=optparse.OptionParser()
@@ -14,14 +15,12 @@ def get_arguments():
         parser.error("[-] Please Specify The MAC Address, use --help For More Info..")
     return option
 
-
-
 def change_mac(interface,mac_add):
     print(" [+] Changing MAC Address For " + interface + " to "+ mac_add )
     subprocess.call(["ifconfig",interface,"down"])
     subprocess.call(["ifconfig",interface,"hw","ether",mac_add])
     subprocess.call(["ifconfig",interface,"up"])
-    subprocess.call(["ifconfig",interface])
+    # subprocess.call(["ifconfig",interface])
 
      #raw_input("New MAC > ")
 
@@ -33,4 +32,10 @@ def change_mac(interface,mac_add):
 
 # call
 option = get_arguments()
-change_mac(option.interface,option.mac_add )
+# change_mac(option.interface,option.mac_add )
+ifconfig_results=subprocess.check_output(["ifconfig",option.interface])
+mac_add_search_results=re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w",ifconfig_results)
+if mac_add_search_results:
+    print(mac_add_search_results.group(0))
+else:
+    print("[-] Could not found MAC Address.")
