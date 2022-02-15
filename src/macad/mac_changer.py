@@ -23,18 +23,23 @@ def change_mac(interface,mac_add):
 
 def get_current_mac(interface):
     ifconfig_results=subprocess.check_output(["ifconfig",interface])
-    mac_add_search_results=re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w",ifconfig_results)
+    mac_add_search_results=re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w",ifconfig_results.decode())
     if mac_add_search_results:
         return mac_add_search_results.group(0)
     else:
         print("[-] Could not found MAC Address.")
 # call
-option = get_arguments()
-current_mac=get_current_mac(option.interface)
-print("current MAC = " + str(current_mac))
-change_mac(option.interface,option.mac_add)
-current_mac=get_current_mac(option.interface)
-if current_mac == option.mac_add:
-    print("[+] MAC Address was Successfully Changed to " + current_mac)
-else:
-    print("[-] MAC Address Did Not Changed.")
+def main():
+    option = get_arguments()
+    current_mac=get_current_mac(option.interface)
+    print("current MAC = " + str(current_mac))
+    change_mac(option.interface,option.mac_add)
+    current_mac=get_current_mac(option.interface)
+    if current_mac == option.mac_add:
+        print("[+] MAC Address was Successfully Changed to " + current_mac)
+    else:
+        print("[-] MAC Address Did Not Changed.")
+
+
+if __name__ == "__main__":
+    main()
