@@ -50,4 +50,5 @@ MIT
 
 ## Author
 
-[Deepak Patidar](https://github.com/DeepakDarkiee/great-text)
+[Deepak Patidar](https://github.com/DeepakDarkiee/macad)
+[RishiRaj Singh Chawda](https://github.com/rishirajchawda)

@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "macad"
-version = "1.0.1"
+version = "1.0.2"
 description = "The Tool For Changing Your MAC Address for Any Interface"
-authors = ["Deepak Patidar <info.deepakpatidar@gmail.com>"]
+authors = ["Deepak Patidar <info.deepakpatidar@gmail.com>","RishiRaj Singh Chawda <rishirajsinghchawda@gmail.com>"]
 license = "MIT"
 repository = 'https://github.com/DeepakDarkiee/macad.git'
 readme = 'README.md'
